@@ -13,23 +13,23 @@ doctor_list = DoctorSeeding.new
 
 doctors = doctor_list.doctor["data"]
 
-doctors.each do |doctor|
+doctors.each_with_index do |doctor,i|
   begin
     docname = doctor["practices"][0]["name"]
     docspecialty = doctor["specialties"][0]["name"] + " " + doctors[0]["specialties"][0]["description"]
     docinsurance = doctor["practices"][0]["insurance_uids"]
-    doccity = doctor["practices"][1]["visit_address"]["city"]
-    docstate = doctor["practices"][1]["visit_address"]["state"]
-    doczip = doctor["practices"][1]["visit_address"]["zip"]
+    doccity = doctor["practices"][0]["visit_address"]["city"]
+    docstate = doctor["practices"][0]["visit_address"]["state"]
+    doczip = doctor["practices"][0]["visit_address"]["zip"]
     docimage = doctor["profile"]["image_url"]
     docbio = doctor["profile"]["bio"]
 
   rescue
-    puts "we hit an error"
+    puts "we hit an error at  #{i}"
     next
 
   else
-    Doctor.create({
+    Doctor.create(
       name: docname,
       specialties: docspecialty,
       insurance:docinsurance,
@@ -38,6 +38,6 @@ doctors.each do |doctor|
       zip:doczip,
       image_url:docimage,
       bio:docbio
-    })
+    )
   end
 end
