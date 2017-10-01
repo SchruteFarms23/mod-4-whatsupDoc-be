@@ -2,6 +2,7 @@ class UsersController < ApplicationController
   skip_before_action :authorized, only: [:create]
 
   def create
+    byebug
     user = User.new(username:params[:username], password:params[:password])
     if user.save
       token = encode_token({user_id: user.id})
