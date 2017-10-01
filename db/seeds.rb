@@ -13,6 +13,7 @@ doctor_list = DoctorSeeding.new
 
 doctors = doctor_list.doctor["data"]
 
+
 doctors.each_with_index do |doctor,i|
   begin
     docname = doctor["practices"][0]["name"]
@@ -32,7 +33,7 @@ doctors.each_with_index do |doctor,i|
     Doctor.create(
       name: docname,
       specialties: docspecialty,
-      insurance:docinsurance,
+      insurance: docinsurance,
       city:doccity,
       state:docstate,
       zip:doczip,
@@ -41,3 +42,8 @@ doctors.each_with_index do |doctor,i|
     )
   end
 end
+
+# Doctor.all.each do |doc|
+#   eval doc.insurance
+#   byebug
+# end
