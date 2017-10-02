@@ -43,6 +43,11 @@ doctors.each_with_index do |doctor,i|
   end
 end
 
+Doctor.all.each do |doc|
+  doc[:insurance] = JSON.parse(doc[:insurance])
+  
+end
+
 # Doctor.all.each do |doc|
 #   eval doc.insurance
 #   byebug

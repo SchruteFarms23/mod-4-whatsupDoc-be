@@ -11,6 +11,11 @@ class UsersController < ApplicationController
     end
   end
 
+  def get_doctors
+    @user_doctors = User.last
+    render json: @user_doctors, status: 200
+  end
+
   def me
     if @user
       render json: {user: @user, doctors: @user.doctors}
