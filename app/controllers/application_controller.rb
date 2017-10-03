@@ -49,6 +49,7 @@ class ApplicationController < ActionController::API
   # # #
   # # #
   def welcome
+    
     render json: {message: "Please log in"}
   end
 

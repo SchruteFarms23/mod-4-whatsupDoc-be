@@ -1,8 +1,8 @@
 class UsersController < ApplicationController
-  skip_before_action :authorized, only: [:create]
+  skip_before_action :authorized, only: [:create,:mydoctors]
 
   def create
-    byebug
+
     user = User.new(username:params[:username], password:params[:password])
     if user.save
       token = encode_token({user_id: user.id})
@@ -17,6 +17,7 @@ class UsersController < ApplicationController
   end
 
   def me
+
     if @user
       render json: {user: @user, doctors: @user.doctors}
     else
@@ -24,4 +25,12 @@ class UsersController < ApplicationController
     end
 
   end
+
+  def mydoctors
+    @user = User.find_by(id: params[:id])
+    @doctors = @user.doctors
+    render json: @doctors
+  end
+
+
 end
