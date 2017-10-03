@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  skip_before_action :authorized, only: [:create,:mydoctors,:update]
+  skip_before_action :authorized, only: [:create,:mydoctors,:update,:destroy]
 
   def create
 
@@ -35,7 +35,17 @@ class UsersController < ApplicationController
   def update
     @user = User.find(params[:user_id])
     @doctor = Doctor.find(params[:doc_id])
+    if !@user.doctors.include?(@doctor)
     @user.doctors << @doctor
+    end
+  end
+
+  def destroy
+    @user = User.find(params[:user_id])
+    @doctor = Doctor.find(params[:doc_id])
+    @user.doctors.delete(@doctor)
+    render json: @doctor
+
   end
 
 
