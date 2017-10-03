@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  skip_before_action :authorized, only: [:create,:mydoctors]
+  skip_before_action :authorized, only: [:create,:mydoctors,:update]
 
   def create
 
@@ -30,6 +30,12 @@ class UsersController < ApplicationController
     @user = User.find_by(id: params[:id])
     @doctors = @user.doctors
     render json: @doctors
+  end
+
+  def update
+    @user = User.find(params[:user_id])
+    @doctor = Doctor.find(params[:doc_id])
+    @user.doctors << @doctor
   end
 
 
